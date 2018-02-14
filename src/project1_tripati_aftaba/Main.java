@@ -13,12 +13,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        final Double[] supportList = new Double[] {0.01, 0.05, 0.1};
+        final Double[] chunkSizes = new Double[] {0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
         long lStartTime, lEndTime;
+        HashMap<Integer, ArrayList<Integer>> transactionList;
         File dataSet;
 
-        Apriori apriori = new Apriori();
-        PCY pcy = new PCY();
-
+        // Get file path and read file.
         if(args.length > 1) {
             dataSet = new File(args[1]);
         }
@@ -31,18 +32,9 @@ public class Main {
             s.close();
         }
 
-//        dataSet = Common.readInputFile("D:\\Onedrive\\College\\425\\Project 1\\retail.txt");
-//        dataSet = Common.readInputFile("C:\\Users\\Ayub\\OneDrive\\425 Project 1\\retail.txt");
-
-        HashMap<Integer, ArrayList<Integer>> transactionList;
         transactionList = Common.readTransactions(dataSet);
 
-        final Double[] supportList = new Double[] {0.01, 0.05, 0.1};
-        final Double[] chunkSizes = new Double[] {0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
-
-        PCYProcessDebug ppd = new PCYProcessDebug();
-
-
+        /*
         // Verbose run of APriori (Support: 5%, Chunk: 100%)
         AprioriProcessDebug apd = new AprioriProcessDebug();
         apd.prepData(transactionList);
@@ -51,11 +43,19 @@ public class Main {
         apd.getItemSet1();
         apd.getItemSet2();
 
-
-
         // Verbose run of PCY (Support: 5%, Chunk: 100%)
-        // TODO: Add debug version for PCY class
+        PCYProcessDebug ppd = new PCYProcessDebug();
+        ppd.prepData(transactionList);
+        ppd.setMinSupportPercent(0.05);
+        ppd.prepCandidateList();
+        ppd.getItemSet1();
+        ppd.getItemSet2();
+        ppd.prepHashTable();
+        ppd.prepBitmap();
+        */
 
+        Apriori apriori = new Apriori();
+        PCY pcy = new PCY();
 
         System.out.println("Project 1 - Akshit Tripathi(Apriori) and Ayub Khan(PCY)\n" +
                 "=======================================================");
@@ -85,7 +85,7 @@ public class Main {
                 lEndTime = System.nanoTime();
                 System.out.println((lEndTime - lStartTime) / 1000000 + "ms (PCY) [" + chunk * 100 + "% chunk]");
 
-                //Reset variables before calling them again (resets data structures in classes)
+                //Reinitialize variables before calling them again (resets data structures in classes)
                 apriori = new Apriori();
                 pcy = new PCY();
             }

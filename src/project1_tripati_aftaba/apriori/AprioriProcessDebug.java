@@ -90,11 +90,9 @@ public class AprioriProcessDebug {
         System.out.println("Done. Frequent ItemList 2 is ready.");
 
         System.out.print("\tStep 3: Find frequency of item sets in transactions...");
-        frequentItemList2.forEach((a, b) -> {
-            transactionList.forEach((i, j) -> {
-                if(j.containsAll(a)) frequentItemList2.put(a, frequentItemList2.get(a) + 1);
-            });
-        });
+        frequentItemList2.forEach((a, b) -> transactionList.forEach((i, j) -> {
+            if(j.containsAll(a)) frequentItemList2.put(a, frequentItemList2.get(a) + 1);
+        }));
 //        frequentItemList2.forEach((x, y) -> System.out.println(x + " --> " + y));
         System.out.println("Done.");
 

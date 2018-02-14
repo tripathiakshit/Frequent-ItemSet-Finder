@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Common {
-    public static int total = 0;
-
     public static File readInputFile(String fileName) {
         return new File(fileName);
     }
