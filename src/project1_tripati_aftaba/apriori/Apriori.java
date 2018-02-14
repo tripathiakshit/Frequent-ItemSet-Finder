@@ -3,7 +3,7 @@ package project1_tripati_aftaba.apriori;
 import java.util.*;
 
 public class Apriori {
-    int minSupport;
+    private int minSupport;
     private HashMap<Integer, ArrayList<Integer>> transactionList;
     private HashMap<Integer, Integer> candidateList;
     private HashMap<Integer, Integer> frequentItemList1;
